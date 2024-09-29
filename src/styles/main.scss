@@ -1,0 +1,24 @@
+$primery_color: red;
+.root_node > circle{
+  fill: red;
+  border-style: solid;
+  border-color: blue;
+}
+.branch_node > circle{
+  fill: green;
+}
+/*.leaf_node{
+  fill: yellow;
+}*/
+#tree{
+  height: 1200px;
+}
+body{
+  overflow: hidden;
+}
+/*.rd3t-link{
+  stroke: red !important;
+}*/
+/*g{
+  transform: translate(140, -25) !important;
+}*/
