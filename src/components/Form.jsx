@@ -1,33 +1,23 @@
 import React, {useEffect} from 'react';
 import '../styles/main.scss';
 import Tree from 'react-d3-tree';
-//import '../images/рисунок.svg'
 
-const customElement = (id) => {
+
+const customElement = (id) => {                   //Задаём начальный шаблон для ВСЕХ узлов дерева
     return  <foreignObject width="100" height="100">
-              <html>
-                <div>
-                  <div className="node" style={{width: 80, height: 80, backgroundColor: "black", borderColor: "red", borderStyle: "solid", borderWidth: 5, borderRadius: 100}}></div>
-                </div>
-              </html>
+                  <div>
+                    <div className="node" style={{width: 120, height: 80, backgroundColor: "black"}}></div>
+                  </div>
       </foreignObject>
   
 }
 
+
 const Form = () => {
 
-   const list_of_links = document.getElementsByClassName('rd3t-link')
-   for(let i = 0; i < list_of_links.length; i++)
-   {
-     list_of_links[i].id = "link" + i
-   }
-   const list_of_nodes = document.getElementsByClassName('node')
-   for(let i = 0; i < list_of_nodes.length; i++)
-   {
-     list_of_nodes[i].id = "node" + i;
-   }
-  const data = {
-    type: "problem",
+   
+  const data = {                                  //Объект для отрисовки
+      type: "problem",
       title: "my first problem",
       description: "so it begins",
       is_optimal: true,
@@ -226,41 +216,77 @@ const Form = () => {
         }
       ]
   }
-  
-  /*useEffect(function Title(data)
-  {
-    
-    console.log(data.title)
-    if(data.children && Object.keys(data.children).length > 0)
-    {
-      let counter = 0
-      
-      for(const id in data.children)
-      {
-        counter++
-        let object = document.getElementById('node' + counter)
-        if(data.title == "problem")
-        {
-          object.style.background = "green"
-        }
-        if(data.title == "decision")
-        {
-          object.style.background = "red"
-        }
-        Title(data.children[id])
 
+
+
+
+
+
+
+  /*function findTitle(node)
+  {
+    let counter = 0
+    console.log(node.type)
+    if(node.children && Object.keys(node.children).length > 0)
+    {
+      for(let id in node.children)
+      {
+        if(node.type == "problem")
+        {
+          node.id.style.backgroundColor == "red"
+        }
+        findTitle(node.children[id])
+        counter++
       }
     }
-  }, [])*/
+  }*/
+
+
+
+  useEffect(() => {
+   const list_of_links = document.getElementsByClassName('rd3t-link')          // С 247 по 275 присваиваем элементам уникальный id
+   for(let i = 0; i < list_of_links.length; i++)
+   {
+     list_of_links[i].id = "link" + i;
+   }
+   const root_node = document.getElementsByClassName('rd3t-node root_node')
+   for(let i = 0; i < root_node.length; i++)
+    {
+      root_node[i].id = "root-node" + i;
+    }
+    const branch_node = document.getElementsByClassName('rd3t-node branch_node')
+   for(let i = 0; i < branch_node.length; i++)
+    {
+      branch_node[i].id = "branch-node" + i;
+    }
+    const leaf_node = document.getElementsByClassName('rd3t-leaf-node branch_node')
+   for(let i = 0; i < leaf_node.length; i++)
+    {
+      leaf_node[i].id = "leaf-node" + i;
+    }
+    for(let i = 0; i < leaf_node.length; i++)
+    {
+      leaf_node[i].id = "leaf-node" + i;
+    }
+    const all_nodes = document.getElementsByClassName('node')
+   for(let i = 0; i < all_nodes.length; i++)
+    {
+      all_nodes[i].id = "unique-node" + i;
+    }
+    
+  }, [])
+   /*useEffect(() => {
+    findTitle(data)
+   }, [])*/
   return(
+
     <div id='tree'>
-      <Tree 
+      <Tree                                            //отрисовываем дерево
           data={data}
           renderCustomNodeElement={customElement}
           rootNodeClassName='root_node'
           branchNodeClassName='branch_node'
           leafNodeClassName='leaf_node'
-          translate={{x: 100, y: 100}}
       />
     </div>
   );
